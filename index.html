@@ -1,0 +1,557 @@
+<title>Будни после 1905 года</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oranienbaum&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=PT+Mono&display=swap">
+<style>
+/* Layout: архивное «дело» — колонка цветных листов; у каждого раздела свой цвет, у каждого блока штамп: факт / источник / интерпретация / реконструкция */
+:root{
+  --paper:#ffffff; --sheet:#ffffff; --ink:#000000; --muted:#4a4a4a; --rule:#dcdcdc;
+  --accent:#c8102e; --blue:#2b4a78; --soft:#f6f6f6;
+  --c1:#2456a6; --c1t:#e8eff9; --c2:#c8102e; --c2t:#fde9ec; --c3:#3f7d2e; --c3t:#eaf4e4;
+  --c4:#6b4a9a; --c4t:#f1ebf8; --c5:#c8102e; --c5t:#fde9ec;
+  --hero:#c8102e; --heroink:#ffffff; --ok:#2f7a3a; --bad:#c8102e;
+  --ill-paper:#ffffff; --ill-line:#9a9a9a; --ill-dark:#111111;
+  --display:"Oranienbaum","Times New Roman",serif;
+  --body:"Literata",Georgia,serif;
+  --mono:"PT Mono",ui-monospace,monospace;
+}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.1;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,5vw,40px)}
+h3{font-size:24px}
+p{margin:0}
+.lbl{font:400 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+button{font-family:var(--mono);cursor:pointer}
+
+/* ---------- hero ---------- */
+header{margin-top:24px;color:var(--heroink);padding:40px clamp(20px,5vw,44px) 30px;
+  background:linear-gradient(135deg,var(--hero) 0%,var(--hero) 55%,#7a2a1c 100%);display:flex;flex-direction:column;gap:18px}
+header .lbl{color:#c9d3e6}
+.case{display:flex;flex-wrap:wrap;gap:8px 18px}
+h1{font-size:clamp(40px,8vw,72px);letter-spacing:-.01em}
+h1 em{font-style:normal;color:#ffb08f}
+.thesis{border-left:3px solid #ffb08f;padding-left:18px;font-style:italic;font-size:19px;max-width:62ch}
+.lead{max-width:62ch;color:#dfe4ee}
+.hero-ill{width:100%;height:auto;display:block;border-top:1px solid rgba(255,255,255,.18);padding-top:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips a{font:400 13px/1 var(--mono);text-decoration:none;padding:9px 12px;border-radius:2px;color:#fff;transition:transform .15s}
+.chips a:hover{transform:translateY(-2px)}
+.chips a:nth-child(1){background:#2f66c2}.chips a:nth-child(2){background:#c4402a}.chips a:nth-child(3){background:#4c8f39}
+.chips a:nth-child(4){background:#7a58ad}.chips a:nth-child(5){background:#a87608}
+
+/* ---------- sheet ---------- */
+.sheet{background:var(--sheet);border:1px solid var(--rule);border-top:6px solid var(--k,var(--rule));
+  padding:28px clamp(18px,4vw,36px);display:flex;flex-direction:column;gap:16px}
+.sheet > p, .sheet li{max-width:65ch}
+.stamp{align-self:flex-start;font:400 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border:1.5px solid currentColor;border-radius:2px}
+.s-fact{color:var(--blue)} .s-src{color:var(--accent)} .s-int{color:var(--ink)} .s-rec{color:var(--muted);border-style:dashed}
+.legend{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+.legend span.t{font-size:14px;color:var(--muted)}
+.note{font:400 12.5px/1.4 var(--mono);color:var(--muted)}
+
+/* ---------- interactive timeline ---------- */
+.tl-track{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+.tl-track button{flex:1 0 76px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:10px 8px;
+  background:var(--c5t);border:1px solid var(--rule);border-radius:2px;color:var(--ink);text-align:left;font-size:12px;line-height:1.25}
+.tl-track button b{font:400 15px/1 var(--mono);color:var(--c5);font-variant-numeric:tabular-nums}
+.tl-track button[aria-pressed="true"]{background:var(--c5);border-color:var(--c5);color:var(--sheet)}
+.tl-track button[aria-pressed="true"] b{color:var(--sheet)}
+.tl-card{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:start;background:var(--soft);padding:16px}
+.tl-card svg{width:96px;height:96px}
+.tl-card > div{display:flex;flex-direction:column;gap:6px;min-width:0}
+.tl-card .date{font:400 13px/1 var(--mono);color:var(--c5)}
+.tl-card .life{font-size:15.5px;border-left:3px solid var(--c5);padding-left:10px}
+.tl-nav{display:flex;gap:8px}
+.tl-nav button{padding:8px 12px;border:1px solid var(--rule);background:transparent;color:var(--ink);font-size:13px;border-radius:2px}
+@media (max-width:520px){.tl-card{grid-template-columns:1fr}.tl-card svg{width:72px;height:72px}}
+
+/* ---------- arguments ---------- */
+.arg-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.arg-no{font:400 56px/0.8 var(--display)}
+#problem{--k:var(--c5)} #problem h2{color:var(--c5)}
+#context{--k:var(--c5)}
+#arg1{--k:var(--c1);--ac:var(--c1);--at:var(--c1t);background:var(--c1t)}
+#arg2{--k:var(--c2);--ac:var(--c2);--at:var(--c2t);background:var(--c2t)}
+#arg3{--k:var(--c3);--ac:var(--c3);--at:var(--c3t);background:var(--c3t)}
+.arg .arg-no,.arg h2{color:var(--ac)}
+#limits{--k:var(--c4);background:var(--c4t)} #limits h2{color:var(--c4)}
+#views{--k:var(--c5)} #game{--k:var(--c1)} #quiz{--k:var(--c3)} #verdict{--k:var(--accent);background:linear-gradient(180deg,var(--c2t),var(--sheet) 70%)}
+
+.scene{background:var(--sheet);border:1px solid var(--rule);display:flex;flex-direction:column}
+.scene svg{width:100%;height:auto;display:block}
+.scene-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid var(--rule)}
+.switch{display:inline-flex;border:1.5px solid var(--ac);border-radius:2px;overflow:hidden}
+.switch button{border:0;background:transparent;color:var(--ac);padding:8px 14px;font-size:14px}
+.switch button[aria-pressed="true"]{background:var(--ac);color:var(--sheet)}
+.scene[data-state="before"] .after,.scene[data-state="after"] .before{display:none}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.compare > div{background:var(--sheet);padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0;transition:opacity .2s,box-shadow .2s}
+.compare p{font-size:15.5px}
+.arg[data-state="before"] .compare .c-after,.arg[data-state="after"] .compare .c-before{opacity:.45}
+.arg[data-state="before"] .compare .c-before,.arg[data-state="after"] .compare .c-after{box-shadow:inset 4px 0 0 var(--ac);background:var(--at)}
+@media (max-width:560px){.compare{grid-template-columns:1fr}}
+blockquote{margin:0;padding:14px 18px;background:var(--sheet);font-size:16px;display:flex;flex-direction:column;gap:6px}
+blockquote cite{font:400 13px/1.4 var(--mono);color:var(--muted);font-style:normal}
+.meaning{font-size:16px}
+.meaning b{font-weight:600}
+
+/* ---------- personas ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{display:flex;align-items:center;gap:8px;font-size:14px;line-height:1;padding:8px 12px 8px 8px;background:transparent;color:var(--ink);border:1.5px solid var(--tc);border-radius:2px}
+.tabs button svg{width:26px;height:26px;flex:none}
+.tabs button[aria-selected="true"]{background:var(--tc);color:#fff}
+.panel{display:grid;grid-template-columns:120px 1fr;gap:20px;border-left:5px solid var(--pc,var(--rule));padding-left:16px;align-items:start}
+.panel .big svg{width:120px;height:120px}
+.panel dl{margin:0;display:grid;grid-template-columns:130px 1fr;gap:10px 16px;min-width:0}
+.panel dt{font:400 13px/1.6 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.panel dd{margin:0;font-size:16px;min-width:0}
+.mood{display:flex;align-items:center;gap:10px;grid-column:1/-1;font:400 13px/1 var(--mono);color:var(--muted)}
+.mood .bar{flex:1;height:10px;background:linear-gradient(90deg,var(--bad),var(--c5),var(--ok));border-radius:5px;position:relative;max-width:320px}
+.mood .pin{position:absolute;top:-4px;width:6px;height:18px;background:var(--ink);border-radius:2px;transition:left .3s}
+@media (max-width:600px){.panel{grid-template-columns:1fr}.panel .big svg{width:80px;height:80px}.panel dl{grid-template-columns:1fr;gap:2px}.panel dd{margin-bottom:10px}}
+
+ul.plain{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.verdict{font-size:19px}
+ol.src{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px;font-size:15.5px}
+ol.src .kind{font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-right:6px}
+footer{color:var(--muted);font-size:14px;max-width:65ch;display:flex;flex-direction:column;gap:8px}
+
+/* illustration helpers */
+.ip{fill:var(--ill-paper)} .il{fill:var(--ill-line)} .id{fill:var(--ill-dark)} .sl{stroke:var(--ill-line)} .sd{stroke:var(--ill-dark)}
+@media (prefers-reduced-motion:no-preference){
+  .smoke circle{animation:rise 4s ease-in-out infinite}
+  .smoke circle:nth-child(2){animation-delay:1.3s}.smoke circle:nth-child(3){animation-delay:2.6s}
+  .flag{animation:wave 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
+  .panel,.tl-card{animation:fade .3s ease}
+}
+@keyframes rise{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(-26px);opacity:.2}}
+@keyframes wave{0%,100%{transform:skewY(0)}50%{transform:skewY(-6deg)}}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+/* ===== белый фон, чёрный текст, красный акцент ===== */
+header{background:linear-gradient(135deg,#c8102e 0%,#a00d24 50%,#5e0712 100%)}
+header .lbl{color:#ffd9de}
+header h1 em{color:#ffe08a}
+header .thesis{border-left-color:#ffe08a}
+header .lead{color:#fff}
+.chips a{background:#fff!important;color:#c8102e;border:2px solid #fff;font-weight:700}
+.chips a:hover{background:#ffe08a!important}
+.sheet{--k:var(--accent)!important;border-top-width:8px}
+#arg1,#arg2,#arg3,#limits{background:var(--sheet)}
+.sheet h2,.arg .arg-no{color:var(--accent)!important}
+.sheet .lbl{color:var(--accent)}
+.s-int{color:var(--accent)}
+.stamp{background:#fff}
+.meaning b,.verdict b,#problem b{color:var(--accent)}
+blockquote{background:var(--c2t);border-left:4px solid var(--accent)}
+.compare > div:first-child .lbl{color:var(--muted)}
+.q .qn{color:var(--accent)}
+.progress i{background:var(--accent)}
+.qnav button{background:var(--accent);border-color:var(--accent);color:#fff}
+.qnav button.ghost{background:#fff;color:var(--accent)}
+.score{background:var(--c2t);border-left:4px solid var(--accent)}
+footer{border-top:4px solid var(--accent);padding-top:14px}
+
+/* ===== вкладки ===== */
+.tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:#fff;display:flex;gap:6px;overflow-x:auto;
+  padding-block:10px;border-bottom:3px solid var(--accent);scrollbar-width:thin}
+.tabbar button{flex:none;font:700 14px/1 var(--mono);padding:11px 14px;border:2px solid var(--accent);background:#fff;color:var(--accent);border-radius:2px;white-space:nowrap}
+.tabbar button:hover{background:var(--c2t)}
+.tabbar button[aria-selected="true"]{background:var(--accent);color:#fff}
+.tabbar button span{opacity:.6;margin-right:6px;font-weight:400}
+.pager{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pager button{font:700 14px/1 var(--mono);padding:12px 16px;background:var(--accent);color:#fff;border:2px solid var(--accent);border-radius:2px}
+.pager button:disabled{opacity:.3;cursor:default}
+.wrap > section[hidden]{display:none!important}
+.arg{--ac:var(--accent)!important}
+.scene{border:0}
+</style>
+
+<div class="wrap">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<g id="man"><circle cx="0" cy="-87" r="8"/><path d="M-9 -92 a9 6 0 0 1 18 0 v2 h5 v2 h-23z"/><path d="M-13 -78 Q0 -82 13 -78 L16 -42 L11 -42 L9 0 L2 0 L0 -40 L-2 0 L-9 0 L-11 -42 L-16 -42 Z"/></g>
+<g id="walk"><circle cx="3" cy="-87" r="8"/><path d="M-6 -92 a9 6 0 0 1 18 0 v2 h5 v2 h-23z"/><path d="M-10 -78 Q3 -82 15 -78 L19 -46 L13 -45 L11 -42 L21 -2 L14 0 L4 -30 L-6 0 L-14 -2 L-5 -42 L-12 -46 Z"/></g>
+<g id="sit"><path d="M-22 -62 h5 v62 h-5z M-22 -30 h34 v5 h-34z M8 -26 h5 v26 h-5z"/><circle cx="-2" cy="-74" r="8"/><path d="M-12 -64 Q-3 -68 6 -63 L20 -54 L18 -49 L4 -56 L5 -36 L22 -36 L24 0 L17 0 L16 -29 L-8 -29 L-13 -44 Z"/></g>
+<g id="wom"><circle cx="0" cy="-86" r="7"/><path d="M-9 -85 Q0 -100 9 -85 L11 -79 L-11 -79 Z"/><path d="M-10 -78 Q0 -82 10 -78 L12 -50 L22 0 L-22 0 L-12 -50 Z"/></g>
+</defs></svg>
+
+
+<header>
+  <div class="case">
+    <span class="lbl">Дело № 24</span>
+    <span class="lbl">Россия · 1905–1907</span>
+    <span class="lbl">Интерактивный медиапроект</span>
+  </div>
+  <h1>Революция пришла <em>в быт</em></h1>
+  <p class="thesis">«Революция 1905–1907 годов изменила не только государственное устройство, но и повседневную жизнь общества».</p>
+  <p class="lead">Это утверждение проверяется на трёх примерах: газетный киоск, фабричный цех и крестьянский двор. Переключайте картинки «1904 / 1907», чтобы увидеть разницу.</p>
+  <svg class="hero-ill" viewBox="0 0 800 220" role="img" aria-label="Иллюстрация в три окна: колонна с флагами, человек с газетой под лампой, фабрика">
+    <rect width="800" height="220" fill="#141414"/>
+    <rect x="10" y="10" width="252" height="200" fill="#d8312e"/>
+    <polygon points="70,10 150,10 262,190 262,210 140,210" fill="#f2e4cf"/>
+    <rect x="98" y="40" width="3" height="130" fill="#141414"/>
+    <rect class="flag" x="101" y="40" width="58" height="28" fill="#141414"/>
+    <text x="130" y="58" text-anchor="middle" font-family="PT Mono,monospace" font-size="9" fill="#f2e4cf">8 ЧАСОВ</text>
+    <g fill="#141414"><use href="#walk" transform="translate(42 210) scale(1.45)"/><use href="#walk" transform="translate(84 210) scale(1.55)"/><use href="#walk" transform="translate(128 210) scale(1.5)"/><use href="#walk" transform="translate(172 210) scale(1.6)"/><use href="#walk" transform="translate(220 210) scale(1.45)"/></g>
+    <rect x="274" y="10" width="252" height="200" fill="#d8312e"/>
+    <rect x="398" y="10" width="3" height="32" fill="#141414"/>
+    <path d="M382 42 h36 l10 14 h-56z" fill="#141414"/>
+    <polygon points="380,56 420,56 510,210 290,210" fill="#f2e4cf"/>
+    <use href="#sit" transform="translate(380 210) scale(1.75)" fill="#141414"/>
+    <g transform="translate(410 88) rotate(6)"><rect width="50" height="40" fill="#fffaf0" stroke="#141414" stroke-width="2"/><rect x="5" y="5" width="40" height="5" fill="#141414"/><g fill="#888"><rect x="5" y="15" width="40" height="2"/><rect x="5" y="21" width="40" height="2"/><rect x="5" y="27" width="40" height="2"/><rect x="5" y="33" width="30" height="2"/></g></g>
+    <rect x="538" y="10" width="252" height="200" fill="#d8312e"/>
+    <circle cx="700" cy="70" r="34" fill="#f2e4cf"/>
+    <g class="smoke" fill="#141414"><circle cx="606" cy="40" r="10"/><circle cx="616" cy="28" r="8"/><circle cx="600" cy="22" r="7"/></g>
+    <rect x="592" y="50" width="20" height="90" fill="#141414"/>
+    <path d="M548 210 V140 L596 115 V140 L644 115 V140 L692 115 V140 L740 115 V210 Z" fill="#141414"/>
+    <g fill="#f2e4cf"><rect x="562" y="156" width="18" height="14"/><rect x="606" y="156" width="18" height="14"/><rect x="650" y="156" width="18" height="14"/><rect x="694" y="156" width="18" height="14"/></g>
+    <use href="#man" transform="translate(766 210) scale(1.15)" fill="#141414"/>
+  </svg>
+</header>
+
+<nav class="tabbar" id="tabbar" role="tablist" aria-label="Разделы проекта"></nav>
+
+<section class="sheet" id="howto">
+  <span class="lbl">Как читать эту страницу</span>
+  <p>Историческое объяснение строится из разных материалов, и их нельзя смешивать. Поэтому у каждого блока стоит штамп.</p>
+  <div class="legend">
+    <span class="stamp s-fact">Факт</span><span class="t">установленное событие или дата</span>
+    <span class="stamp s-src">Источник</span><span class="t">документ эпохи</span>
+    <span class="stamp s-int">Интерпретация</span><span class="t">вывод автора</span>
+    <span class="stamp s-rec">Реконструкция</span><span class="t">типичная ситуация, а не реальный человек</span>
+  </div>
+  <p class="note">Все рисунки на странице — авторские иллюстрации-схемы, а не исторические изображения. Подлинные фотографии эпохи: <a href="https://commons.wikimedia.org/wiki/Category:Russian_Revolution_of_1905" target="_blank" rel="noopener">архив Wikimedia Commons</a>.</p>
+</section>
+
+<section class="sheet" id="problem">
+  <span class="stamp s-int">Проблема</span>
+  <h2>О чём спор</h2>
+  <p>О революции 1905 года обычно рассказывают «сверху»: манифест, Государственная дума, партии. Но был ли от этого толк человеку, который не ходил на митинги и никогда не голосовал? Если реформы остались на бумаге, то революцию можно считать политическим эпизодом. Если они поменяли то, что человек читал, сколько он работал и сколько платил, то это перелом в жизни всего общества.</p>
+  <p>Главный вопрос: <b>что именно изменилось в будничной жизни людей после 1905–1907 годов и для всех ли одинаково?</b></p>
+</section>
+
+<section class="sheet" id="context">
+  <span class="stamp s-fact">Контекст</span>
+  <h2>Что произошло</h2>
+  <p>К 1905 году Россия была самодержавной монархией: законы издавал император, парламента не было, партии и профсоюзы запрещались, газеты проходили цензуру. Крестьяне, большинство населения, всё ещё выплачивали выкупные платежи за землю, полученную после 1861 года. Неудачная война с Японией (1904–1905) усилила недовольство.</p>
+  <p class="note">Нажимайте на даты, чтобы узнать, как событие ощутили в обычной жизни.</p>
+  <div class="tl-track" id="tlTrack" role="group" aria-label="Хронология"></div>
+  <div class="tl-card" id="tlCard" aria-live="polite"></div>
+  <div class="tl-nav"><button id="tlPrev" type="button">← Раньше</button><button id="tlNext" type="button">Позже →</button></div>
+</section>
+
+<!-- ===== Аргумент I ===== -->
+<section class="sheet arg" id="arg1" data-state="before">
+  <div class="arg-head"><span class="arg-no">I</span><h2>Газетный киоск: свобода слова и собраний</h2></div>
+  <figure class="scene" data-state="before" style="margin:0">
+    <svg viewBox="0 0 400 230" role="img" aria-label="Иллюстрация: человек читает газету под лампой, до и после отмены цензуры">
+      <rect width="400" height="230" fill="#141414"/><rect x="8" y="8" width="384" height="214" fill="#d8312e"/>
+      <rect x="196" y="8" width="3" height="36" fill="#141414"/>
+      <path d="M180 44 h38 l10 14 h-58z" fill="#141414"/>
+      <polygon points="178,58 220,58 330,222 70,222" fill="#f2e4cf"/>
+      <use href="#sit" transform="translate(170 222) scale(1.9)" fill="#141414"/>
+      <g transform="translate(204 90) rotate(6)">
+        <rect width="62" height="50" fill="#fffaf0" stroke="#141414" stroke-width="2"/>
+        <rect x="6" y="6" width="50" height="5" fill="#141414"/>
+        <g fill="#888"><rect x="6" y="16" width="50" height="2"/><rect x="6" y="22" width="50" height="2"/><rect x="6" y="28" width="50" height="2"/><rect x="6" y="34" width="50" height="2"/><rect x="6" y="40" width="50" height="2"/></g>
+        <g class="before" fill="#141414"><rect x="6" y="14" width="30" height="12"/><rect x="24" y="30" width="32" height="12"/></g>
+        <g class="after"><rect x="6" y="14" width="50" height="13" fill="#fffaf0"/><text x="31" y="25" text-anchor="middle" font-family="Oranienbaum,serif" font-size="12" fill="#141414">ДУМА</text></g>
+      </g>
+      <g class="before" transform="translate(286 30) rotate(-8)">
+        <rect width="92" height="32" fill="none" stroke="#f2e4cf" stroke-width="2"/>
+        <text x="46" y="14" text-anchor="middle" font-family="PT Mono,monospace" font-size="9" fill="#f2e4cf">ДОЗВОЛЕНО</text>
+        <text x="46" y="26" text-anchor="middle" font-family="PT Mono,monospace" font-size="9" fill="#f2e4cf">ЦЕНЗУРОЮ</text>
+      </g>
+      <g class="after">
+        <use href="#man" transform="translate(318 222) scale(1.35)" fill="#141414"/>
+        <use href="#wom" transform="translate(362 222) scale(1.25)" fill="#141414"/>
+        <text x="300" y="38" text-anchor="middle" font-family="PT Mono,monospace" font-size="10" fill="#f2e4cf">ГАЗЕТЫ ВСЕХ ПАРТИЙ</text>
+      </g>
+    </svg>
+    <div class="scene-bar">
+      <span class="note">Иллюстрация-схема</span>
+      <div class="switch" role="group" aria-label="Время"><button type="button" data-set="before" aria-pressed="true">1904</button><button type="button" data-set="after" aria-pressed="false">1907</button></div>
+    </div>
+  </figure>
+  <span class="stamp s-src">Источник</span>
+  <blockquote>
+    <p>«…даровать населению незыблемые основы гражданской свободы на началах действительной неприкосновенности личности, свободы совести, слова, собраний и союзов».</p>
+    <cite>Манифест 17 октября 1905 г.</cite>
+  </blockquote>
+  <span class="stamp s-fact">Факт</span>
+  <div class="compare">
+    <div class="c-before"><span class="lbl">До 1905</span><p>Предварительная цензура газет. Политические партии вне закона. Собрание без разрешения властей могло закончиться арестом.</p></div>
+    <div class="c-after"><span class="lbl">После 1905–1906</span><p>«Временные правила» о печати (24 ноября 1905 г.) отменили предварительную цензуру для периодических изданий в городах. Возникли легальные партии: кадеты, октябристы и другие. Число газет и журналов резко выросло.</p></div>
+  </div>
+  <span class="stamp s-int">Что это значило в быту</span>
+  <p class="meaning">Горожанин теперь мог купить газету разных направлений и прочитать, о чём спорят в Думе. Отчёты о думских заседаниях печатались открыто, и политика стала темой разговоров в трактире, в вагоне трамвая, за семейным столом. <b>Изменилось то, что человек знал и о чём мог говорить вслух.</b></p>
+</section>
+
+<!-- ===== Аргумент II ===== -->
+<section class="sheet arg" id="arg2" data-state="before">
+  <div class="arg-head"><span class="arg-no">II</span><h2>Фабричный цех: профсоюз и рабочий день</h2></div>
+  <figure class="scene" data-state="before" style="margin:0">
+    <svg viewBox="0 0 400 230" role="img" aria-label="Иллюстрация: фабрика, рабочие и часы с длиной рабочего дня до и после 1905 года">
+      <rect width="400" height="230" fill="#141414"/><rect x="8" y="8" width="384" height="214" fill="#d8312e"/>
+      <g class="smoke" fill="#141414"><circle cx="84" cy="40" r="10"/><circle cx="94" cy="28" r="8"/><circle cx="78" cy="22" r="7"/></g>
+      <rect x="70" y="50" width="22" height="90" fill="#141414"/>
+      <path d="M24 222 V130 L74 105 V130 L124 105 V130 L174 105 V130 L224 105 V222 Z" fill="#141414"/>
+      <g fill="#f2e4cf"><rect x="40" y="150" width="20" height="16"/><rect x="80" y="150" width="20" height="16"/><rect x="160" y="150" width="20" height="16"/><rect x="196" y="150" width="20" height="16"/><rect x="112" y="176" width="40" height="46"/></g>
+      <g class="before" fill="#141414">
+        <use href="#walk" transform="translate(268 222) scale(-.62 .62)"/>
+        <use href="#walk" transform="translate(300 222) scale(-.62 .62)"/>
+        <use href="#walk" transform="translate(334 222) scale(-.62 .62)"/>
+        <use href="#walk" transform="translate(150 222) scale(-.5 .5)" fill="#d8312e"/>
+      </g>
+      <g class="after">
+        <rect x="244" y="150" width="3" height="72" fill="#141414"/>
+        <rect class="flag" x="247" y="150" width="72" height="28" fill="#141414"/>
+        <text x="283" y="168" text-anchor="middle" font-family="PT Mono,monospace" font-size="9" fill="#f2e4cf">ПРОФСОЮЗ</text>
+        <use href="#man" transform="translate(335 222) scale(.66)" fill="#141414"/>
+        <use href="#man" transform="translate(358 222) scale(.7)" fill="#141414"/>
+        <use href="#wom" transform="translate(380 222) scale(.64)" fill="#141414"/>
+      </g>
+      <g transform="translate(330 92)">
+        <circle r="54" fill="#f2e4cf" stroke="#141414" stroke-width="4"/>
+        <circle r="42" fill="none" stroke="#e2cfb3" stroke-width="10"/>
+        <circle class="before" r="42" fill="none" stroke="#141414" stroke-width="10" stroke-dasharray="252.9 263.9" transform="rotate(-90)"/>
+        <circle class="after" r="42" fill="none" stroke="#d8312e" stroke-width="10" stroke-dasharray="208.9 263.9" transform="rotate(-90)"/>
+        <text class="before" y="6" text-anchor="middle" font-family="Oranienbaum,serif" font-size="22" fill="#141414">11½ ч</text>
+        <text class="after" y="6" text-anchor="middle" font-family="Oranienbaum,serif" font-size="22" fill="#141414">9–10 ч</text>
+        <text y="22" text-anchor="middle" font-family="PT Mono,monospace" font-size="7" fill="#141414">РАБОЧИЙ ДЕНЬ</text>
+      </g>
+    </svg>
+    <div class="scene-bar">
+      <span class="note">Иллюстрация-схема. Шкала часов — 12 часов.</span>
+      <div class="switch" role="group" aria-label="Время"><button type="button" data-set="before" aria-pressed="true">1904</button><button type="button" data-set="after" aria-pressed="false">1907</button></div>
+    </div>
+  </figure>
+  <span class="stamp s-fact">Факт</span>
+  <div class="compare">
+    <div class="c-before"><span class="lbl">До 1905</span><p>Закон 1897 г. ограничивал рабочий день 11,5 часами. Профсоюзы и стачки были запрещены; спор с хозяином часто кончался увольнением или высылкой.</p></div>
+    <div class="c-after"><span class="lbl">После 1905–1906</span><p>«Временные правила об обществах и союзах» (4 марта 1906 г.) разрешили профсоюзы. На многих предприятиях после стачек 1905 г. рабочий день сократили до 9–10 часов, а заработки повысили.</p></div>
+  </div>
+  <span class="stamp s-src">Источник</span>
+  <blockquote>
+    <p>По данным фабричной инспекции, в 1905 году в стачках участвовало около 2,8 млн рабочих. В предыдущее десятилетие счёт шёл на десятки тысяч в год.</p>
+    <cite>Статистика фабричной инспекции; приводится в работах Б. Н. Миронова и А. Ашера</cite>
+  </blockquote>
+  <span class="stamp s-int">Что это значило в быту</span>
+  <p class="meaning">Рабочий получил законный способ защищать себя сообща: платить взносы в союз, ходить на собрания, читать профсоюзную газету. Лишний свободный час в день означал время на воскресную школу, клуб или просто отдых. <b>Изменились распорядок дня и чувство, что с хозяином можно договариваться.</b></p>
+</section>
+
+<!-- ===== Аргумент III ===== -->
+<section class="sheet arg" id="arg3" data-state="before">
+  <div class="arg-head"><span class="arg-no">III</span><h2>Крестьянский двор: конец выкупных платежей</h2></div>
+  <figure class="scene" data-state="before" style="margin:0">
+    <svg viewBox="0 0 400 230" role="img" aria-label="Иллюстрация: изба, крестьянка и мешок выкупного платежа; после 1907 года платёж отменён, появляется отруб">
+      <rect width="400" height="230" fill="#141414"/><rect x="8" y="8" width="384" height="214" fill="#d8312e"/>
+      <circle cx="345" cy="50" r="30" fill="#f2e4cf"/>
+      <rect x="8" y="160" width="384" height="62" fill="#141414"/>
+      <g class="before">
+        <g fill="#f2e4cf"><rect x="8" y="168" width="384" height="3"/><rect x="8" y="180" width="384" height="3"/><rect x="8" y="192" width="384" height="3"/><rect x="8" y="204" width="384" height="3"/></g>
+        <rect x="108" y="208" width="184" height="14" fill="#141414"/>
+        <text x="200" y="219" text-anchor="middle" font-family="PT Mono,monospace" font-size="9" fill="#f2e4cf">ОБЩИННЫЕ ПОЛОСЫ · ПЕРЕДЕЛЫ</text>
+      </g>
+      <g class="after">
+        <rect x="212" y="168" width="172" height="46" fill="none" stroke="#f2e4cf" stroke-width="2" stroke-dasharray="7 5"/>
+        <text x="298" y="195" text-anchor="middle" font-family="PT Mono,monospace" font-size="10" fill="#f2e4cf">СВОЙ ОТРУБ</text>
+      </g>
+      <g transform="translate(26 160)" fill="#141414">
+        <rect x="60" y="-94" width="8" height="20"/>
+        <path d="M0 -60 L45 -95 L90 -60Z"/><rect x="6" y="-60" width="78" height="60"/>
+        <rect x="33" y="-48" width="22" height="18" fill="#f2e4cf"/>
+      </g>
+      <use href="#wom" transform="translate(146 160) scale(.9)" fill="#141414"/>
+      <g transform="translate(182 50)">
+        <path d="M30 0 h30 l-6 14 c24 8 34 30 34 50 c0 22 -18 30 -43 30 c-25 0 -43 -8 -43 -30 c0 -20 10 -42 34 -50 z" fill="#f2e4cf" stroke="#141414" stroke-width="3"/>
+        <text x="45" y="62" text-anchor="middle" font-family="Oranienbaum,serif" font-size="20" fill="#141414">руб.</text>
+        <g class="before"><text x="108" y="62" font-family="PT Mono,monospace" font-size="11" fill="#f2e4cf">ВЫКУПНОЙ</text><text x="108" y="78" font-family="PT Mono,monospace" font-size="11" fill="#f2e4cf">ПЛАТЁЖ</text></g>
+        <g class="after"><line x1="-6" y1="2" x2="96" y2="96" stroke="#141414" stroke-width="7"/><line x1="96" y1="2" x2="-6" y2="96" stroke="#141414" stroke-width="7"/>
+        <text x="108" y="62" font-family="PT Mono,monospace" font-size="11" fill="#f2e4cf">ОТМЕНЁН</text><text x="108" y="78" font-family="PT Mono,monospace" font-size="11" fill="#f2e4cf">С 1907 г.</text></g>
+      </g>
+    </svg>
+    <div class="scene-bar">
+      <span class="note">Иллюстрация-схема</span>
+      <div class="switch" role="group" aria-label="Время"><button type="button" data-set="before" aria-pressed="true">1904</button><button type="button" data-set="after" aria-pressed="false">1907</button></div>
+    </div>
+  </figure>
+  <span class="stamp s-src">Источник</span>
+  <blockquote>
+    <p>Манифест 3 ноября 1905 г. объявлял: с 1 января 1906 года выкупные платежи уменьшить наполовину, а с 1 января 1907 года прекратить их взимание совсем.</p>
+    <cite>Пересказ по сборнику «Законодательные акты переходного времени. 1904–1908 гг.»</cite>
+  </blockquote>
+  <span class="stamp s-fact">Факт</span>
+  <div class="compare">
+    <div class="c-before"><span class="lbl">До 1905</span><p>Крестьяне более 40 лет выплачивали долг за надельную землю. Выйти из общины с наделом было практически нельзя.</p></div>
+    <div class="c-after"><span class="lbl">После 1907</span><p>Выкупные платежи отменены. Указ 9 ноября 1906 г. разрешил закрепить надел в собственность и выйти из общины на хутор или отруб.</p></div>
+  </div>
+  <span class="stamp s-int">Что это значило в быту</span>
+  <p class="meaning">У крестьянской семьи исчезла ежегодная обязательная выплата, которая висела над хозяйством с 1861 года. А указ 1906 г. поставил вопрос, которого раньше не было: оставаться в общине «как все» или рискнуть и вести хозяйство самому. Этот выбор раскалывал деревни и даже семьи. <b>Изменились деньги в кошельке и сам уклад деревенской жизни.</b></p>
+</section>
+
+<section class="sheet" id="limits">
+  <span class="stamp s-int">Контраргумент</span>
+  <h2>Где перемены остановились</h2>
+  <p>Честная проверка требует посмотреть и на то, что не изменилось или было отыграно назад.</p>
+  <ul class="plain">
+    <li><b>Власть царя.</b> По Основным законам 23 апреля 1906 г. император сохранил огромные полномочия, а Думу мог распустить.</li>
+    <li><b>Выборы.</b> Голосовали не все: выборы были многоступенчатыми и неравными, женщины права голоса не получили. Закон 3 июня 1907 г. ещё сократил представительство крестьян и рабочих.</li>
+    <li><b>Свободы на практике.</b> Газеты закрывали и штрафовали, профсоюзы запрещали после регистрации. В 1906–1907 гг. действовали военно-полевые суды.</li>
+    <li><b>Земля.</b> Главное требование крестьян, раздел помещичьих земель, не было выполнено.</li>
+  </ul>
+</section>
+
+<section class="sheet" id="views">
+  <span class="stamp s-rec">Реконструкция</span>
+  <h2>Одни события, разные глаза</h2>
+  <p>Ниже обобщённые позиции социальных групп, а не высказывания конкретных людей. Каждая опирается на факты, приведённые выше. Шкала «настроение» — оценка автора, а не статистика.</p>
+  <div class="tabs" role="tablist" aria-label="Социальные группы" id="tabs"></div>
+  <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+</section>
+
+<section class="sheet" id="verdict">
+  <span class="stamp s-int">Вывод</span>
+  <h2>Подтверждается ли утверждение?</h2>
+  <p class="verdict">Да, но с оговоркой. Революция изменила повседневность как минимум в трёх местах: в том, что человек мог читать и обсуждать; в том, сколько и на каких условиях он работал; в том, сколько крестьянская семья платила государству и могла ли распоряжаться землёй.</p>
+  <p>При этом перемены были неравномерными. Горожанин и рабочий ощутили их быстрее, чем жители дальних деревень. Часть свобод после 1907 г. урезали, а главные противоречия, прежде всего земельный вопрос и неравные политические права, остались. Поэтому точнее сказать так: <b>революция не перевернула повседневную жизнь, а открыла в ней новые возможности, которыми разные группы воспользовались в разной мере.</b></p>
+</section>
+
+<section class="sheet" id="sources">
+  <span class="lbl">Источники и литература</span>
+  <ol class="src">
+    <li><span class="kind">Источник</span>Высочайший Манифест «Об усовершенствовании государственного порядка» от 17 октября 1905 г.</li>
+    <li><span class="kind">Источник</span>Манифест «Об улучшении благосостояния и облегчении положения крестьянского населения» от 3 ноября 1905 г.; Временные правила о повременных изданиях (24.11.1905); Временные правила об обществах и союзах (04.03.1906). Цит. по: Законодательные акты переходного времени. 1904–1908 гг. / под ред. Н. И. Лазаревского. СПб., 1909.</li>
+    <li><span class="kind">Источник</span>Витте С. Ю. Воспоминания. Взгляд одного из авторов Манифеста 17 октября на причины уступок власти.</li>
+    <li><span class="kind">Литература</span>Миронов Б. Н. Социальная история России периода империи (XVIII — начало XX в.). СПб., 1999.</li>
+    <li><span class="kind">Литература</span>Ascher A. The Revolution of 1905: A Short History. Stanford University Press, 2004.</li>
+  </ol>
+</section>
+
+<div class="pager" id="pager"><button type="button" id="pgPrev">← Назад</button><span id="pgInfo" class="note"></span><button type="button" id="pgNext">Далее →</button></div>
+
+<footer>
+  <p>Цифры даны округлённо, как в научной литературе. Персонажи в разделе «Одни события, разные глаза» обобщённые: их позиции реконструированы по интересам социальных групп.</p>
+  <p>Иллюстрации нарисованы для этого проекта и не являются историческими изображениями.</p>
+</footer>
+</div>
+
+<script>
+
+/* ---------- interactive timeline ---------- */
+const events=[
+  {d:"9 янв. 1905",t:"«Кровавое воскресенье»",x:"Расстрел шествия рабочих к Зимнему дворцу в Петербурге. Начало революции.",life:"По городам прокатились стачки: закрывались фабрики, мастерские, иногда магазины. Новости разносили слухи и листовки, а не газеты.",icon:"crowd"},
+  {d:"17 апр. 1905",t:"Указ о веротерпимости",x:"Разрешён переход из православия в другую христианскую веру, ослаблены ограничения для старообрядцев.",life:"Старообрядцы смогли открыто служить в своих храмах. Вопрос веры стал частным делом человека, а не только государства.",icon:"church"},
+  {d:"Октябрь 1905",t:"Всеобщая стачка",x:"Встали железные дороги, фабрики, почта. Участников, по распространённым оценкам, около 2 млн.",life:"Не ходили поезда, не работали телеграф и электростанции. Горожане запасали продукты и свечи, в некоторых городах гас свет.",icon:"train"},
+  {d:"17 окт. 1905",t:"Манифест",x:"Гражданские свободы и законодательная Государственная дума.",life:"На улицах прошли митинги радости. Впервые открыто продавались газеты разных партий.",icon:"scroll"},
+  {d:"3 нояб. 1905",t:"Выкупные платежи",x:"Манифест о сокращении вдвое, а затем полной отмене выкупных платежей крестьян.",life:"Для крестьянской семьи это означало, что ежегодный обязательный платёж за землю скоро исчезнет.",icon:"coin"},
+  {d:"Декабрь 1905",t:"Восстание в Москве",x:"Вооружённое восстание, в первую очередь на Пресне. Подавлено войсками.",life:"Баррикады на улицах, артиллерийский обстрел рабочих кварталов. Жители неделями не выходили из домов.",icon:"barricade"},
+  {d:"Апрель 1906",t:"I Государственная дума",x:"Первый в России законодательный выборный орган начал работу.",life:"Отчёты о заседаниях читали в газетах по всей стране. Крестьяне писали наказы своим депутатам.",icon:"duma"},
+  {d:"9 нояб. 1906",t:"Указ о выходе из общины",x:"Крестьяне получили право закрепить надел в собственность. Начало столыпинской аграрной реформы.",life:"В деревнях спорили: выходить на отруб или оставаться в общине. Решение могло рассорить соседей.",icon:"field"},
+  {d:"3 июня 1907",t:"Роспуск II Думы",x:"Новый избирательный закон. Принято считать концом революции.",life:"Число депутатов от крестьян и рабочих сократилось. Многие поняли, что часть завоеваний отыграна назад.",icon:"lock"}
+];
+const icons={
+  crowd:'<circle cx="30" cy="40" r="7"/><rect x="22" y="48" width="16" height="26" rx="4"/><circle cx="50" cy="36" r="7"/><rect x="42" y="44" width="16" height="30" rx="4"/><circle cx="70" cy="40" r="7"/><rect x="62" y="48" width="16" height="26" rx="4"/><rect x="48" y="14" width="2" height="24"/><rect x="50" y="14" width="18" height="10" fill="#f2e4cf"/>',
+  church:'<rect x="30" y="44" width="40" height="36"/><path d="M50 18 L64 44 H36 Z"/><rect x="48" y="6" width="4" height="14"/><rect x="43" y="10" width="14" height="3"/><rect x="45" y="60" width="10" height="20" fill="#d8312e"/>',
+  train:'<rect x="16" y="36" width="56" height="30" rx="3"/><rect x="62" y="22" width="16" height="44"/><rect x="24" y="26" width="10" height="12"/><circle cx="30" cy="72" r="7"/><circle cx="54" cy="72" r="7"/><path d="M12 82 H88" stroke="var(--ill-dark)" stroke-width="2"/><line x1="10" y1="20" x2="90" y2="84" stroke="#f2e4cf" stroke-width="5"/>',
+  scroll:'<rect x="24" y="16" width="52" height="68" rx="3" fill="#f2e4cf" stroke="var(--ill-dark)" stroke-width="2"/><rect x="32" y="28" width="36" height="3"/><rect x="32" y="38" width="36" height="3"/><rect x="32" y="48" width="30" height="3"/><rect x="32" y="58" width="36" height="3"/><circle cx="62" cy="72" r="8" fill="#f2e4cf"/>',
+  coin:'<circle cx="50" cy="50" r="30" fill="#f2e4cf"/><text x="50" y="58" text-anchor="middle" font-family="Oranienbaum,serif" font-size="22" fill="#141414">руб</text><line x1="18" y1="18" x2="82" y2="82" stroke="#f2e4cf" stroke-width="5"/>',
+  barricade:'<path d="M10 80 L30 50 L45 62 L60 44 L90 80 Z"/><rect x="58" y="16" width="2.5" height="30"/><rect x="60" y="16" width="20" height="12" fill="#f2e4cf"/>',
+  duma:'<rect x="14" y="40" width="72" height="40"/><path d="M10 40 L50 18 L90 40 Z"/><g fill="#d8312e"><rect x="22" y="48" width="6" height="28"/><rect x="36" y="48" width="6" height="28"/><rect x="58" y="48" width="6" height="28"/><rect x="72" y="48" width="6" height="28"/></g>',
+  field:'<rect x="10" y="50" width="80" height="34" fill="#141414"/><rect x="48" y="54" width="38" height="26" fill="#f2e4cf"/><rect x="48" y="54" width="38" height="26" fill="none" stroke="var(--ill-dark)" stroke-dasharray="4 3"/><path d="M14 50 L30 32 L46 50 Z"/><rect x="18" y="50" width="24" height="16"/>',
+  lock:'<rect x="26" y="44" width="48" height="38" rx="4"/><path d="M36 44 V32 a14 14 0 0 1 28 0 V44" fill="none" stroke="var(--ill-dark)" stroke-width="6"/><circle cx="50" cy="62" r="5" fill="#d8312e"/>'
+};
+const svgIcon=k=>`<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#141414"/><rect x="5" y="5" width="90" height="90" fill="#d8312e"/><g fill="#141414">${icons[k]}</g></svg>`;
+let ti=0;
+const track=document.getElementById("tlTrack"), card=document.getElementById("tlCard");
+events.forEach((e,i)=>{
+  const b=document.createElement("button");b.type="button";b.id="tl"+i;
+  b.innerHTML=`<b>${e.d.split(" ").pop()}</b>${e.d.replace(/\s?\d{4}$/,"")||"год"}`;
+  b.addEventListener("click",()=>showEv(i));track.appendChild(b);
+});
+function showEv(i){
+  ti=i;const e=events[i];
+  [...track.children].forEach((b,j)=>b.setAttribute("aria-pressed",j===i));
+  card.innerHTML=`${svgIcon(e.icon)}<div><span class="date">${e.d}</span><h3>${e.t}</h3><p>${e.x}</p><p class="life"><b>В быту:</b> ${e.life}</p></div>`;
+  card.style.animation="none";card.offsetHeight;card.style.animation="";
+  track.children[i].scrollIntoView({block:"nearest",inline:"nearest"});
+}
+document.getElementById("tlPrev").onclick=()=>showEv((ti-1+events.length)%events.length);
+document.getElementById("tlNext").onclick=()=>showEv((ti+1)%events.length);
+showEv(0);
+
+/* ---------- before / after switches ---------- */
+document.querySelectorAll(".arg").forEach(sec=>{
+  const scene=sec.querySelector(".scene");
+  sec.querySelectorAll(".switch button").forEach(btn=>btn.addEventListener("click",()=>{
+    const st=btn.dataset.set;
+    scene.dataset.state=st;sec.dataset.state=st;
+    sec.querySelectorAll(".switch button").forEach(b=>b.setAttribute("aria-pressed",b===btn));
+  }));
+});
+
+/* ---------- personas ---------- */
+const people=[
+  {id:"worker",name:"Рабочий",c:"#c4402a",mood:72,icon:'<circle cx="50" cy="30" r="14"/><path d="M34 26 h32 v-6 a16 10 0 0 0 -32 0z" fill="#f2e4cf"/><rect x="30" y="48" width="40" height="40" rx="8"/><rect x="66" y="56" width="18" height="6" transform="rotate(-30 66 56)"/>',
+   hope:"Короче рабочий день, выше плата, право на профсоюз и стачку.",gain:"Профсоюзы стали законными; на многих фабриках добились 9–10-часового дня.",fear:"Увольнение за забастовку, локауты, аресты активистов после 1907 г.",why:"Жил в городе, где новые газеты и собрания были рядом. Его жизнь зависела от условий труда, поэтому важнее всего были экономические уступки."},
+  {id:"peasant",name:"Крестьянин",c:"#4c8f39",mood:50,icon:'<circle cx="50" cy="30" r="14"/><path d="M36 40 q14 14 28 0 v6 q-14 12 -28 0z" fill="#f2e4cf"/><rect x="30" y="48" width="40" height="40" rx="8"/><rect x="76" y="20" width="3" height="66"/><path d="M78 20 q14 4 10 20" fill="none" stroke="var(--ill-dark)" stroke-width="3"/>',
+   hope:"Получить помещичью землю.",gain:"Отмена выкупных платежей; право выйти из общины с наделом.",fear:"Распад общины, которая помогала в неурожай; карательные экспедиции за погромы усадеб.",why:"Свобода печати мало что меняла для неграмотного или живущего далеко от города человека. Главным мерилом была земля, а этот вопрос революция не решила."},
+  {id:"owner",name:"Фабрикант",c:"#a87608",mood:58,icon:'<circle cx="50" cy="34" r="14"/><rect x="38" y="6" width="24" height="16"/><rect x="32" y="20" width="36" height="4"/><rect x="30" y="52" width="40" height="38" rx="8"/><circle cx="50" cy="66" r="3" fill="#f2e4cf"/>',
+   hope:"Порядок на производстве и голос в политике, чтобы влиять на законы о торговле и налогах.",gain:"Партии и Дума дали возможность представлять свои интересы, например через октябристов.",fear:"Забастовки срывают заказы, рост зарплат съедает прибыль.",why:"Предприниматель одновременно выигрывал от ограничения самодержавия и проигрывал от силы рабочих. Отсюда осторожная позиция: реформы да, революция нет."},
+  {id:"noble",name:"Помещик, чиновник",c:"#7a58ad",mood:28,icon:'<circle cx="50" cy="32" r="14"/><path d="M36 22 h28 l-4 -10 h-20z"/><rect x="30" y="50" width="40" height="40" rx="8"/><g fill="#f2e4cf"><rect x="30" y="54" width="40" height="5"/><circle cx="42" cy="68" r="3"/><circle cx="58" cy="68" r="3"/></g>',
+   hope:"Восстановление спокойствия и сохранение прежнего порядка.",gain:"Основные законы 1906 г. и закон 3 июня 1907 г. оставили за ними сильное влияние.",fear:"Поджоги усадеб, требование раздела земли, потеря привычной власти.",why:"Для них перемены в быту означали прежде всего угрозу: новая свобода крестьян и рабочих сокращала их собственное положение."},
+  {id:"intel",name:"Студент, учитель",c:"#2f66c2",mood:64,icon:'<circle cx="50" cy="32" r="14"/><path d="M34 22 h32 v-4 h-32z M38 18 l12 -8 l12 8z"/><rect x="30" y="50" width="40" height="40" rx="8"/><rect x="62" y="60" width="22" height="16" fill="#f2e4cf" stroke="var(--ill-dark)" stroke-width="2"/>',
+   hope:"Настоящая конституция, равные выборы, свобода слова без оговорок.",gain:"Легальные партии, бесцензурная пресса, публичные лекции и собрания.",fear:"Что уступки окажутся временными; закрытие изданий и обществ после 1907 г.",why:"Образованный горожанин сильнее всех ощутил свободу слова и собраний, но и разочарование от её урезания тоже переживал острее."}
+];
+const tabs=document.getElementById("tabs"), panel=document.getElementById("panel");
+const pSvg=p=>`<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#141414"/><rect x="5" y="5" width="90" height="90" fill="#d8312e"/><g fill="#141414">${p.icon}</g></svg>`;
+people.forEach(p=>{
+  const b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.id="t-"+p.id;
+  b.style.setProperty("--tc",p.c);b.setAttribute("aria-controls","panel");
+  b.innerHTML=pSvg(p)+p.name;b.addEventListener("click",()=>showP(p.id));tabs.appendChild(b);
+});
+function showP(id){
+  const p=people.find(x=>x.id===id);
+  [...tabs.children].forEach(b=>b.setAttribute("aria-selected",b.id==="t-"+id));
+  panel.setAttribute("aria-labelledby","t-"+id);panel.style.setProperty("--pc",p.c);
+  panel.innerHTML=`<div class="big">${pSvg(p)}</div><dl>
+    <dt>Чего ждал</dt><dd>${p.hope}</dd><dt>Что получил</dt><dd>${p.gain}</dd>
+    <dt>Чего опасался</dt><dd>${p.fear}</dd><dt>Почему так</dt><dd>${p.why}</dd></dl>
+    <div class="mood"><span>угроза</span><span class="bar"><span class="pin" style="left:calc(${p.mood}% - 3px)"></span></span><span>надежда</span></div>`;
+}
+showP("worker");
+
+/* ---------- вкладки страницы ---------- */
+const PAGES=[
+  ["Проблема",["howto","problem"]],["Хронология",["context"]],["Газеты",["arg1"]],["Фабрика",["arg2"]],
+  ["Деревня",["arg3"]],["Пределы",["limits"]],["Мнения",["views"]],["Вывод",["verdict"]],["Источники",["sources"]]
+];
+const bar=document.getElementById("tabbar");
+const allIds=PAGES.flatMap(p=>p[1]);
+let cur=0;
+PAGES.forEach(([name],i)=>{
+  const b=document.createElement("button");b.type="button";b.setAttribute("role","tab");
+  b.innerHTML=`<span>${i+1}</span>${name}`;b.addEventListener("click",()=>openPage(i,true));bar.appendChild(b);
+});
+function openPage(i,scroll){
+  cur=i;
+  allIds.forEach(id=>document.getElementById(id).hidden=!PAGES[i][1].includes(id));
+  [...bar.children].forEach((b,j)=>b.setAttribute("aria-selected",j===i));
+  bar.children[i].scrollIntoView({block:"nearest",inline:"center"});
+  document.getElementById("pgPrev").disabled=i===0;
+  document.getElementById("pgNext").disabled=i===PAGES.length-1;
+  document.getElementById("pgInfo").textContent=`${i+1} из ${PAGES.length}`;
+  document.getElementById("pgNext").textContent=i<PAGES.length-1?`${PAGES[i+1][0]} →`:"Конец";
+  if(scroll)bar.scrollIntoView({block:"start"});
+}
+document.getElementById("pgPrev").onclick=()=>openPage(Math.max(0,cur-1),true);
+document.getElementById("pgNext").onclick=()=>openPage(Math.min(PAGES.length-1,cur+1),true);
+const h=location.hash.slice(1);const hi=PAGES.findIndex(p=>p[1].includes(h));
+openPage(hi>=0?hi:0,false);
+</script>
